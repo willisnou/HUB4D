@@ -2,8 +2,8 @@ object frmSample: TfrmSample
   Left = 0
   Top = 0
   Caption = 'Sample'
-  ClientHeight = 374
-  ClientWidth = 774
+  ClientHeight = 291
+  ClientWidth = 765
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -194,13 +194,5 @@ object frmSample: TfrmSample
     Caption = 'Unsubscribe 3'
     TabOrder = 12
     OnClick = btnUnsubscribe3Click
-  end
-  object btnSubscribeGhost: TButton
-    Left = 176
-    Top = 296
-    Width = 185
-    Height = 25
-    Caption = 'Add a ghost subscriber'
-    TabOrder = 13
   end
 end

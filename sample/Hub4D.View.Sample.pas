@@ -43,7 +43,6 @@ type
     btnUnsubscribe1: TButton;
     btnUnsubscribe2: TButton;
     btnUnsubscribe3: TButton;
-    btnSubscribeGhost: TButton;
     procedure btnSubscribe1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnPublishClick(Sender: TObject);
@@ -72,7 +71,7 @@ const
 implementation
 
 var
-  Router: IHub;
+  Hub: IHub;
   FSpamThread: TSpamThread;
   FObserverThread: TObserverThread;
 
@@ -80,8 +79,8 @@ var
 
 procedure TfrmSample.FormCreate(Sender: TObject);
 begin
-  Router:= THub.Create;
-  Router.RegisterMessage(WM_PUBLISH);
+  Hub:= THub.Create;
+  Hub.RegisterMessage(WM_PUBLISH);
   FSpamThread    := TSpamThread.Create;
   FObserverThread:= TObserverThread.Create;
   FShutdown:= False;
@@ -102,22 +101,22 @@ var
 begin
   LPayload.Data:= TEncoding.UTF8.GetBytes(edtPublisher.Text);
   LPayload.MsgID:= WM_PUBLISH;
-  Router.Publish(LPayload);
+  Hub.Publish(LPayload);
 end;
 
 procedure TfrmSample.btnSubscribe1Click(Sender: TObject);
 begin
-  Router.Subscribe(Subscribe1, WM_PUBLISH);
+  Hub.Subscribe(Subscribe1, WM_PUBLISH);
 end;
 
 procedure TfrmSample.btnSubscribe2Click(Sender: TObject);
 begin
-  Router.Subscribe(Subscribe2, WM_PUBLISH);
+  Hub.Subscribe(Subscribe2, WM_PUBLISH);
 end;
 
 procedure TfrmSample.btnSubscribe3Click(Sender: TObject);
 begin
-  Router.Subscribe(Subscribe3, WM_PUBLISH);
+  Hub.Subscribe(Subscribe3, WM_PUBLISH);
 end;
 
 procedure TfrmSample.Subscribe1(AData: TCustomMessage);
@@ -137,17 +136,17 @@ end;
 
 procedure TfrmSample.btnUnsubscribe1Click(Sender: TObject);
 begin
-  Router.Unsubscribe(subscribe1, WM_PUBLISH);
+  Hub.Unsubscribe(subscribe1, WM_PUBLISH);
 end;
 
 procedure TfrmSample.btnUnsubscribe2Click(Sender: TObject);
 begin
-  Router.Unsubscribe(subscribe2, WM_PUBLISH);
+  Hub.Unsubscribe(subscribe2, WM_PUBLISH);
 end;
 
 procedure TfrmSample.btnUnsubscribe3Click(Sender: TObject);
 begin
-  Router.Unsubscribe(subscribe3, WM_PUBLISH);
+  Hub.Unsubscribe(subscribe3, WM_PUBLISH);
 end;
 
 procedure TfrmSample.cbAutoPublishClick(Sender: TObject);
@@ -183,7 +182,7 @@ begin
     begin
       LMsg.Data:= TEncoding.UTF8.GetBytes(Random(1000).ToString);
       LMsg.MsgID:= WM_PUBLISH;
-      Router.Publish(LMsg);
+      Hub.Publish(LMsg);
       Sleep(10);
     end;
   end;
@@ -205,13 +204,13 @@ begin
                                    if not (Hub4D.View.Sample.frmSample.FShutdown) then
                                    begin
                                      Hub4D.View.Sample.frmSample.lbTotalPushed.Caption:= Format('Total pushed items: %d',
-                                                                                            [Router.QueueTotalPushed(1030)]);
+                                                                                            [Hub.QueueTotalPushed(1030)]);
 
                                      Hub4D.View.Sample.frmSample.lbTotalPopped.Caption:= Format('Total popped items: %d',
-                                                                                            [Router.QueueTotalPopped(1030)]);
+                                                                                            [Hub.QueueTotalPopped(1030)]);
 
                                      Hub4D.View.Sample.frmSample.lbQueueSize.Caption:= Format('Queue Size: %d',
-                                                                                            [Router.QueueSize(1030)]);
+                                                                                            [Hub.QueueSize(1030)]);
                                    end;
                                  end);
   end;
