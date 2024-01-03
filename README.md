@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/willisnou/Mailer4D/blob/main/resources/logo%20JPG.jpg"><br>
+  <img src="https://github.com/willisnou/Hub4D/blob/main/resources/logo.jpg"><br>
   <b>Hub4D</b> is a simple message hub concept to exchange data over message events (like <a href="https://learn.microsoft.com/en-us/windows/win32/learnwin32/window-messages">Windows Messages</a>), being multithread and thread-safe.
 </p>
 
